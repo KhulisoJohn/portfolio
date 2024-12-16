@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "../assets/avata.png"
 
 function Header () {
     return (
@@ -6,8 +7,8 @@ function Header () {
         <header className="header">
             <div className="header_content">
                 <div className="logo_container">
-                    <div className="logo_img">
-                        <img src="" alt=""></img>
+                    <div className="logo_img_cont">
+                        <img src={logo} alt="logo_img" className="logo_img"></img>
                     </div>
                     <span className="logo_sub">KhulysoJohn</span>
                 </div>
@@ -17,28 +18,21 @@ function Header () {
                         <li className="link_wrapper">
                             <a href="#" className="nav_link">home</a>
                         </li>
-                    </ul>
-
-                    <ul className="main_links">
+                  
                         <li className="link_wrapper">
                             <a href="#" className="nav_link">about</a>
                         </li>
-                    </ul>
-
-                    <ul className="main_links">
-                        <li className="link_wrapper">
+                 
+                         <li className="link_wrapper">
                             <a href="#" className="nav_link">projects</a>
                         </li>
-                    </ul>
-
-                    <ul className="main_links">
+                   
                         <li className="link_wrapper">
                             <a href="#" className="nav_link">contact</a>
                         </li>
                     </ul>
 
-
-                    <div className="mobile_menu">
+                <div className="mobile_menu">
 
                     </div>
                 </div>
