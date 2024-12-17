@@ -16,19 +16,19 @@ function Header () {
                 <div className="header_main">
                     <ul className="main_links">
                         <li className="link_wrapper">
-                            <a href="#" className="nav_link">home</a>
+                            <a href="./home.jsx" className="nav_link">home</a>
                         </li>
                   
                         <li className="link_wrapper">
-                            <a href="#" className="nav_link">about</a>
+                            <a href="./about.jsx" className="nav_link">about</a>
                         </li>
                  
                          <li className="link_wrapper">
-                            <a href="#" className="nav_link">projects</a>
+                            <a href="./project.jsx" className="nav_link">projects</a>
                         </li>
                    
                         <li className="link_wrapper">
-                            <a href="#" className="nav_link">contact</a>
+                            <a href="./contact.jsx" className="nav_link">contact</a>
                         </li>
                     </ul>
 
