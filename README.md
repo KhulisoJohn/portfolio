@@ -1,3 +1,4 @@
+
 # MyPortfolio
 
 Welcome to **MyPortfolio** — a modern and responsive personal portfolio website built with **React**, **TypeScript**, and **Tailwind CSS**. This site serves as my digital space to showcase my background, skills, projects, and contact information.
@@ -48,6 +49,4 @@ You may reference or view the code if granted access, but **no part of it may be
 
 Want to collaborate or get in touch?  
 Please reach out via the contact form on the website or connect with me on [LinkedIn](#) or [Twitter](#).
-
----
 
