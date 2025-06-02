@@ -12,20 +12,22 @@ export const AboutSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold">
-              Passionate Software Developer
+             Junior Software Developer
             </h3>
 
             <p className="text-muted-foreground">
-              With over 5 years of experience in web development, I specialize
-              in creating responsive, accessible, and performant web
-              applications using modern technologies.
+              I am a passionate and highly motivated junior software developer with a strong
+               interest in building scalable and maintainable applications. My journey into
+                software development has been driven by a desire to solve real-world problems through
+                 clean, efficient, and modular code.
             </p>
 
             <p className="text-muted-foreground">
-              I'm passionate about creating elegant solutions to complex
-              problems, and I'm constantly learning new technologies and
-              techniques to stay at the forefront of the ever-evolving web
-              landscape.
+            I specialize in backend development using technologies like C# and .NET,
+             with experience in designing structured APIs, working with relational databases,
+              and following architectural patterns such as MVC and layered architecture.
+               I am also familiar with front-end technologies like HTML, CSS, JavaScript, and React,
+                which allows me to contribute to full-stack solutions when needed.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
@@ -50,10 +52,12 @@ export const AboutSection = () => {
                   <Code className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
-                  <h4 className="font-semibold text-lg"> Web Development</h4>
+                  <h4 className="font-semibold text-lg"> Software Development</h4>
                   <p className="text-muted-foreground">
-                    Creating responsive websites and web applications with
-                    modern frameworks.
+                   build web applications using C# and the .NET framework.
+                    I understand the basics of object-oriented programming (OOP),
+                    can work with controllers, models, and views (MVC), and write clean
+                     code that follows standard best practices
                   </p>
                 </div>
               </div>
@@ -64,10 +68,11 @@ export const AboutSection = () => {
                   <User className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
-                  <h4 className="font-semibold text-lg">UI/UX Design</h4>
+                  <h4 className="font-semibold text-lg">Version Control</h4>
                   <p className="text-muted-foreground">
-                    Designing intuitive user interfaces and seamless user
-                    experiences.
+                  Using Git for version control and collaborate on code using GitHub.
+                    With basic knowledge to push and pull code, resolve basic merge conflicts,
+                     and follow branching workflows. 
                   </p>
                 </div>
               </div>
@@ -79,10 +84,11 @@ export const AboutSection = () => {
                 </div>
 
                 <div className="text-left">
-                  <h4 className="font-semibold text-lg">Project Management</h4>
+                  <h4 className="font-semibold text-lg">Database Integration</h4>
                   <p className="text-muted-foreground">
-                    Leading projects from conception to completion with agile
-                    methodologies.
+                   Design simple relational databases and write queries using SQL.
+                    Knowlegable in Entity Framework to perform CRUD operations and understand how to create 
+                    and manage models that match database tables.
                   </p>
                 </div>
               </div>
