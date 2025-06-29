@@ -10,8 +10,8 @@ import tailwindIcon from "../assets/icons/tailwind.webp";
 import tsIcon from "../assets/icons/typescript.webp";
 
 // Backend
-import csharpIcon from "../assets/icons/git.webp";
-import pythonIcon from "../assets/icons/python.webp";
+import csharpIcon from "../assets/icons/Csharp.webp";
+import expressIcon from "../assets/icons/express.webp";
 import nodejsIcon from "../assets/icons/node.webp";
 import mysqlIcon from "../assets/icons/sql.webp";
 import mongodbIcon from "../assets/icons/nosql.webp";
@@ -20,10 +20,10 @@ import aspnetIcon from "../assets/icons/dotnet.webp";
 // Tools
 import githubIcon from "../assets/icons/git.webp";
 import dockerIcon from "../assets/icons/docker.webp";
-import dotnetIcon from "../assets/icons/git.webp";
+import slackIcon from "../assets/icons/slack.webp";
 import vscodeIcon from "../assets/icons/vs code.webp";
 import sqlserverIcon from "../assets/icons/mssql.webp";
-import azureIcon from "../assets/icons/git.webp";
+import azureIcon from "../assets/icons/cloud.webp";
 
 const skills = [
   { name: "HTML", image: htmlIcon, category: "frontend" },
@@ -34,15 +34,15 @@ const skills = [
   { name: "React.js", image: reactIcon, category: "frontend" },
 
   { name: "C#", image: csharpIcon, category: "backend" },
-  { name: "Python", image: pythonIcon, category: "backend" },
+  { name: "Express.js", image: expressIcon, category: "backend" },
   { name: "Node.js", image: nodejsIcon, category: "backend" },
-  { name: "mySQL", image: mysqlIcon, category: "backend" },
-  { name: "MongoDB", image: mongodbIcon, category: "backend" },
+  { name: "SQL", image: mysqlIcon, category: "backend" },
+  { name: "noSQL", image: mongodbIcon, category: "backend" },
   { name: "ASP.NET", image: aspnetIcon, category: "backend" },
 
-  { name: "Git/GitHub", image: githubIcon, category: "tools" },
+  { name: "Git", image: githubIcon, category: "tools" },
   { name: "Docker", image: dockerIcon, category: "tools" },
-  { name: ".NET", image: dotnetIcon, category: "tools" },
+  { name: "Slack", image: slackIcon, category: "tools" },
   { name: "VS Code", image: vscodeIcon, category: "tools" },
   { name: "MSSQL Server", image: sqlserverIcon, category: "tools" },
   { name: "Azure Cloud", image: azureIcon, category: "tools" },
