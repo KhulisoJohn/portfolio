@@ -3,36 +3,36 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react";
 const projects = [
   {
     id: 1,
-    title: "Church Landing Page",
-    description: "A beautiful landing page app using React and Tailwind.",
+    title: "StudentPortal System",
+    description: "modern web application designed to streamline management of educational entities.",
     image: "/projects/project1.png",
-    tags: ["React", "TailwindCSS", "Supabase"],
+    tags: ["C#", "mySQL", "ASP.NET MVC"],
     demoUrl: "#",
-    githubUrl: "#",
+    githubUrl: "https://github.com/KhulisoJohn/StudentPortal.System/",
   },
   {
     id: 2,
-    title: "TwoPot Calculator",
+    title: "Notes App",
     description:
-      "Interactive analytics dashboard with data visualization and filtering capabilities.",
+      " Fullstack CRUD application that allows users to create, read, update, and delete personal notes",
     image: "/projects/project2.png",
-    tags: ["TypeScript", "D3.js", "Next.js"],
+    tags: ["React", "RESTFul API", "MongoDB"],
     demoUrl: "#",
-    githubUrl: "#",
+    githubUrl: "https://github.com/KhulisoJohn/NotesApp",
   },
   {
     id: 3,
     title: "Task Management",
     description:
-      "Full-featured e-commerce platform with user authentication and payment processing.",
+      "A lightweight, web-based gig platform designed for local service providers—fast and fuss-free.",
     image: "/projects/project3.png",
-    tags: ["React", "Node.js", "Stripe"],
+    tags: ["React", "ASP.NET API", "PostgreSQL"],
     demoUrl: "#",
-    githubUrl: "#",
+    githubUrl: "https://github.com/KhulisoJohn/plugPoint",
   },
   {
     id: 4,
-    title: "Library API",
+    title: "Fountain LAnding Page",
     description:
       "RESTful API for managing library books and users with full CRUD support.",
     image: "/projects/project3.png",
