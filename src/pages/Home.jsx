@@ -12,7 +12,7 @@ export const Home = () => {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
      
       {/* Background Effects */}
-      <StarBackground />
+     <StarBackground /> 
 
       {/* Navbar */}
       <Navbar />

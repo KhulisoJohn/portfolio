@@ -1,11 +1,12 @@
-import { Briefcase, Code, User } from "lucide-react";
+import { Code } from "lucide-react";
+import { FaGitAlt, FaDatabase } from "react-icons/fa";
 
 // 👇 Move this outside the main component
 function DownloadPDF() {
   return (
     <a
       className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 text-center"
-      href="../assets/documents/my resume.pdf"
+      href="/document/my_resume.pdf" // make sure this path is correct in /public folder
       download
     >
       Download CV
@@ -68,14 +69,13 @@ export const AboutSection = () => {
             <div className="gradient-border p-6 card-hover">
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-full bg-primary/10">
-                  <User className="h-6 w-6 text-primary" />
+                  <FaGitAlt className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
                   <h4 className="font-semibold text-lg">Version Control</h4>
                   <p className="text-muted-foreground">
-                    Using Git for version control and collaborate on code using GitHub. With basic
-                    knowledge to push and pull code, resolve basic merge conflicts, and follow
-                    branching workflows.
+                    Using Git for version control and collaborating on code using GitHub. Capable of
+                    pushing, pulling, resolving merge conflicts, and following branching workflows.
                   </p>
                 </div>
               </div>
@@ -84,15 +84,14 @@ export const AboutSection = () => {
             <div className="gradient-border p-6 card-hover">
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-full bg-primary/10">
-                  <Briefcase className="h-6 w-6 text-primary" />
+                  <FaDatabase className="h-6 w-6 text-primary" />
                 </div>
 
                 <div className="text-left">
                   <h4 className="font-semibold text-lg">Database Integration</h4>
                   <p className="text-muted-foreground">
-                    Design simple relational databases and write queries using SQL. Knowledgeable in
-                    Entity Framework to perform CRUD operations and understand how to create and
-                    manage models that match database tables.
+                    Design relational databases and write queries using SQL. Knowledgeable in
+                    Entity Framework to perform CRUD operations and manage models matching database tables.
                   </p>
                 </div>
               </div>

@@ -20,10 +20,10 @@ import aspnetIcon from "../assets/icons/dotnet.webp";
 // Tools
 import githubIcon from "../assets/icons/git.webp";
 import dockerIcon from "../assets/icons/docker.webp";
-import slackIcon from "../assets/icons/slack.webp";
+import slackIcon from "../assets/icons/postman-icon.webp";
 import vscodeIcon from "../assets/icons/vs code.webp";
-import sqlserverIcon from "../assets/icons/mssql.webp";
-import azureIcon from "../assets/icons/cloud.webp";
+import sqlserverIcon from "../assets/icons/Linux.webp";
+import azureIcon from "../assets/icons/Azure.webp";
 
 const skills = [
   { name: "HTML", image: htmlIcon, category: "frontend" },
@@ -42,10 +42,10 @@ const skills = [
 
   { name: "Git", image: githubIcon, category: "tools" },
   { name: "Docker", image: dockerIcon, category: "tools" },
-  { name: "Slack", image: slackIcon, category: "tools" },
+  { name: "Postman", image: slackIcon, category: "tools" },
   { name: "VS Code", image: vscodeIcon, category: "tools" },
-  { name: "MSSQL Server", image: sqlserverIcon, category: "tools" },
-  { name: "Azure Cloud", image: azureIcon, category: "tools" },
+  { name: "Linux", image: sqlserverIcon, category: "tools" },
+  { name: "Azure", image: azureIcon, category: "tools" },
 ];
 
 const categories = ["all", "frontend", "backend", "tools"];

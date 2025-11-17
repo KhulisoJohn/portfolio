@@ -3,12 +3,12 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react";
 const projects = [
   {
     id: 1,
-    title: "StudentPortal System",
-    description: "modern web application designed to streamline management of educational entities.",
+    title: "Fountain SA Landing Page",
+    description: "A responsive landing page for a fictional fountain local church.",
     image: "/projects/project1.png",
-    tags: ["C#", "mySQL", "ASP.NET MVC"],
-    demoUrl: "#",
-    githubUrl: "https://github.com/KhulisoJohn/StudentPortal.System/",
+    tags: ["HTML", "Javascript", "Bootstrap"],
+    demoUrl: "https://fountainsa.vercel.app/",
+    githubUrl: "https://github.com/KhulisoJohn/fountainLandingPage",
   },
   {
     id: 2,
