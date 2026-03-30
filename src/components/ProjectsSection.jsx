@@ -19,44 +19,8 @@ const projects = [
     tags: ["React", "RESTFul API", "MongoDB"],
     demoUrl: "#",
     githubUrl: "https://github.com/KhulisoJohn/NotesApp",
-  },
-  {
-    id: 3,
-    title: "Task Management",
-    description:
-      "A lightweight, web-based gig platform designed for local service providers—fast and fuss-free.",
-    image: "/projects/project3.png",
-    tags: ["React", "ASP.NET API", "PostgreSQL"],
-    demoUrl: "#",
-    githubUrl: "https://github.com/KhulisoJohn/plugPoint",
-  },
-  {
-    id: 4,
-    title: "Fountain LAnding Page",
-    description:
-      "RESTful API for managing library books and users with full CRUD support.",
-    image: "/projects/project3.png",
-    tags: ["Express", "MongoDB", "JWT"],
-    githubUrl: "#",
-  },
-  {
-    id: 5,
-    title: "E-commerce Platform",
-    description:
-      "Backend for an e-commerce platform with inventory and payment handling.",
-    image: "/projects/project3.png",
-    tags: ["Node.js", "PostgreSQL", "Stripe"],
-    githubUrl: "#",
-  },
-  {
-    id: 6,
-    title: "Education Platform",
-    description:
-      "Backend API powering an LMS for schools and tutors with secure access.",
-    image: "/projects/project3.png",
-    tags: ["Python", "Django", "DRF"],
-    githubUrl: "#",
-  },
+  }
+    
 ];
 
 export const ProjectsSection = () => {
@@ -72,7 +36,7 @@ export const ProjectsSection = () => {
           crafted with attention to detail, performance, and user experience.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="md:grid grid-cols-1 lg:grid grid-cols-2 gap-8">
           {projects.map((project) => (
             <div
               key={project.id}
