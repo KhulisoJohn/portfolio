@@ -1,133 +1,130 @@
-# Build a Modern Portfolio Website with React & TailwindCSS
+# PortfolioApi (Backend)
 
-<div align="center">
-  <br />
-  <a href="https://youtu.be/YOUR_VIDEO_ID" target="_blank">
-    <img src="./banner.png" alt="Portfolio Website Banner">
-  </a>
-  <br />
-  <div>
-    <img src="https://img.shields.io/badge/-React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
-    <img src="https://img.shields.io/badge/-TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss" alt="Tailwind CSS" />
-    <img src="https://img.shields.io/badge/-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
-    <img src="https://img.shields.io/badge/-Lucide Icons-FD4D4D?style=for-the-badge&logo=lucide" alt="Lucide Icons" />
-    <img src="https://img.shields.io/badge/-Radix UI-9D4EDD?style=for-the-badge&logo=data:image/svg+xml;base64..." alt="Radix UI" />
-  </div>
-  <h3 align="center">Create a Stunning Developer Portfolio with Animations, Dark Mode, and Projects Showcase</h3>
-  <div align="center">
-    Follow the full video tutorial on 
-    <a href="https://youtu.be/YOUR_VIDEO_ID" target="_blank"><b>YouTube</b></a>
-  </div>
-  <br />
-</div>
+ASP.NET Core Web API for the portfolio's contact form and blog, using MongoDB Atlas and Brevo.
 
-## 📋 Table of Contents
+## Requirements
 
-1. [Introduction](#-introduction)
-2. [Tech Stack](#-tech-stack)
-3. [Features](#-features)
-4. [Quick Start](#-quick-start)
-5. [Screenshots](#-screenshots)
-6. [Deployment](#-deployment)
+- .NET 9 SDK
+- A MongoDB Atlas cluster (free tier is fine)
+- A Brevo account with an API key
 
----
+## Project layout
 
-## 🚀 Introduction
-
-In this tutorial, you'll learn how to build a modern portfolio website using **React**, **TailwindCSS**, **Vite**, and **Lucide Icons**. From dark mode support to responsive animations and deployable project showcases, this video walks you through every step—perfect for developers looking to level up their frontend skills or apply for jobs.
-
-🎥 Watch the full tutorial: [YouTube](https://youtu.be/YOUR_VIDEO_ID)
-
----
-
-## ⚙️ Tech Stack
-
-* **React** – Component-based UI development
-* **Vite** – Lightning-fast build tool
-* **TailwindCSS** – Utility-first CSS for styling
-* **Lucide Icons** – Clean and beautiful icon pack
-* **Radix UI** – Accessible component primitives
-* **TypeScript (optional)** – Type safety and tooling
-* **GitHub & Vercel** – Deployment
-
----
-
-## ⚡️ Features
-
-* 🌑 **Light/Dark Mode Toggle**
-  Save theme preference in local storage with beautiful transitions
-
-* 💫 **Animated Backgrounds**
-  Stars, meteors, scroll effects, and glowing UI elements
-
-* 📱 **Responsive Navigation**
-  Desktop and mobile menus with glassmorphism
-
-* 👨‍💻 **Hero & About Sections**
-  Showcase who you are with smooth intro animations and buttons
-
-* 📊 **Skills Grid**
-  Filterable progress bars and categories with animated width
-
-* 🖼️ **Projects Showcase**
-  Display screenshots, tech stacks, and GitHub/demo links
-
-* 📩 **Contact Section**
-  Social icons + responsive contact form with toast notifications
-
-* 🚀 **One-Click Deployment**
-  Easily host your site with Vercel and GitHub
-
----
-
-## 👌 Quick Start
-
-### Prerequisites
-
-* [Node.js](https://nodejs.org/)
-* [Git](https://git-scm.com/)
-
-### Clone and Run
-
-```bash
-git clone https://github.com/yourusername/react-tailwind-portfolio.git
-cd react-tailwind-portfolio
-npm install
-npm run dev
+```
+PortfolioApi/
+├── Controllers/       HTTP endpoints (Contact, Blog, Auth)
+├── Services/           Business logic (email sending, blog CRUD, auth)
+├── Data/                MongoDbContext + strongly-typed settings classes
+├── Models/              MongoDB document models
+├── DTOs/                Request/response shapes
+├── Program.cs           App startup, DI, JWT + CORS config
+└── appsettings.json     Configuration (fill in before running)
 ```
 
-Your app will be available at: [http://localhost:5173](http://localhost:5173)
+## 1. Configure
 
----
+Open `appsettings.json` and fill in:
 
-## 🖼️ Screenshots
+| Key | Where to get it |
+|---|---|
+| `MongoSettings:ConnectionString` | MongoDB Atlas → Connect → Drivers |
+| `BrevoSettings:ApiKey` | Brevo dashboard → SMTP & API → API Keys |
+| `BrevoSettings:SenderEmail` / `RecipientEmail` | Your verified sender + your inbox |
+| `JwtSettings:Secret` | Any random 32+ character string |
+| `AdminUser:PasswordHash` | See "Generate an admin password hash" below |
+| `CorsSettings:AllowedOrigins` | Your frontend's local + production URLs |
 
-> 📸 Add screenshots of your Hero section, Projects grid, and Contact form here to show off your site.
+### Generate an admin password hash
 
----
+```bash
+dotnet new console -n HashGen
+cd HashGen
+dotnet add package BCrypt.Net-Next
+```
 
-## ☁️ Deployment
+Replace the contents of `Program.cs` with:
+```csharp
+Console.WriteLine(BCrypt.Net.BCrypt.HashPassword("your-chosen-password"));
+```
 
-### Deploy on Vercel
+```bash
+dotnet run
+```
 
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import your repository
-4. Click **Deploy**
+Copy the printed hash into `AdminUser:PasswordHash`, then delete the `HashGen` folder.
 
-Your live website will be hosted on a custom subdomain (e.g. `https://your-name.vercel.app`)
+## 2. Install & run
 
----
+```bash
+cd PortfolioApi
+dotnet restore
+dotnet run
+```
 
-## 🔗 Useful Links
+Swagger UI: `https://localhost:{port}/swagger` (dev environment only).
 
-* [React Documentation](https://reactjs.org/)
-* [Tailwind CSS Docs](https://tailwindcss.com/)
-* [Lucide Icons](https://lucide.dev/)
-* [Radix UI](https://www.radix-ui.com/)
-* [Vite](https://vitejs.dev/)
-* [Vercel](https://vercel.com/)
+## 3. API reference
 
----
+### `POST /api/contact`
+```json
+{ "name": "Jane Doe", "email": "jane@example.com", "message": "Hi Khuliso..." }
+```
+Sends an email via Brevo and saves a copy to MongoDB. No auth required.
 
-Let me know if you'd like me to generate a version with your actual GitHub repo, YouTube URL, or a banner image suggestion!
+### `GET /api/blog`
+Returns published posts (summary: title, slug, excerpt, tags, cover image, date).
+
+### `GET /api/blog/{slug}`
+Returns full post content for one post.
+
+### `POST /api/auth/login`
+```json
+{ "username": "khuliso", "password": "your-chosen-password" }
+```
+Returns `{ "token": "...", "expiresAt": "..." }`.
+
+### `POST /api/blog` (Admin)
+Header: `Authorization: Bearer {token}`
+```json
+{
+  "title": "How I built EduPulse AI",
+  "excerpt": "A short teaser...",
+  "content": "Full post body...",
+  "coverImageUrl": "https://...",
+  "tags": ["dotnet", "react"],
+  "isPublished": true
+}
+```
+Slug is auto-generated from the title.
+
+### `PUT /api/blog/{id}` (Admin)
+Same body shape as create. Requires the JWT.
+
+### `DELETE /api/blog/{id}` (Admin)
+Requires the JWT. Returns `204 No Content`.
+
+## 4. Deploy to Render
+
+Build command: `dotnet publish -c Release -o out`
+Start command: `dotnet out/PortfolioApi.dll`
+
+Set these as environment variables in the Render dashboard (double underscore for nested config, matching your CurriculumReviewSystem setup):
+
+```
+MongoSettings__ConnectionString
+BrevoSettings__ApiKey
+BrevoSettings__SenderEmail
+BrevoSettings__RecipientEmail
+JwtSettings__Secret
+AdminUser__Username
+AdminUser__PasswordHash
+CorsSettings__AllowedOrigins__0
+CorsSettings__AllowedOrigins__1
+```
+
+Do **not** commit real secrets into `appsettings.json` if this repo is public — use environment variables in production and keep placeholders in the committed file.
+
+## Notes
+
+- Contact messages are write-only right now — there's no endpoint to read them back except directly in MongoDB Atlas. Ask if you want a protected `GET /api/contact` list added.
+- Blog content is stored as plain text. For Markdown support, no backend change needed — just render it differently on the frontend.
