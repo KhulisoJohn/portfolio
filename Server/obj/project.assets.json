@@ -80,11 +80,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/khulysojohn/Development/Server/Server.csproj",
+      "projectUniqueName": "/home/khulysojohn/Development/portfolio/Server/Server.csproj",
       "projectName": "Server",
-      "projectPath": "/home/khulysojohn/Development/Server/Server.csproj",
+      "projectPath": "/home/khulysojohn/Development/portfolio/Server/Server.csproj",
       "packagesPath": "/home/khulysojohn/.nuget/packages/",
-      "outputPath": "/home/khulysojohn/Development/Server/obj/",
+      "outputPath": "/home/khulysojohn/Development/portfolio/Server/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/khulysojohn/.nuget/NuGet/NuGet.Config"
