@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1m9MszTLFVE=",
+  "dgSpecHash": "M3dwT78YFJY=",
   "success": true,
-  "projectFilePath": "/home/khulysojohn/Development/Server/Server.csproj",
+  "projectFilePath": "/home/khulysojohn/Development/portfolio/Server/Server.csproj",
   "expectedPackageFiles": [
     "/home/khulysojohn/.nuget/packages/microsoft.aspnetcore.openapi/9.0.14/microsoft.aspnetcore.openapi.9.0.14.nupkg.sha512",
     "/home/khulysojohn/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
