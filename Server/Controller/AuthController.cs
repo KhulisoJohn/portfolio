@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using PortfolioApi.DTOs;
-using PortfolioApi.Services;
+using Server.DTOs;
+using Server.Services;
 
-namespace PortfolioApi.Controllers;
+namespace Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

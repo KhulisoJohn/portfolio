@@ -3,10 +3,11 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using PortfolioApi.Data;
-using PortfolioApi.DTOs;
+using Server.Data;
+using Server.DTOs;
 
-namespace PortfolioApi.Services;
+
+namespace Server.Services;
 
 public interface IAuthService
 {

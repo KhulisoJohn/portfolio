@@ -2,9 +2,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
-using PortfolioApi.Data;
+using Server.Data;
 
-namespace PortfolioApi.Services;
+namespace Server.Services;
 
 public interface IEmailService
 {
