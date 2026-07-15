@@ -1,21 +1,74 @@
+using DotNetEnv;
 using Server.Data;
 using Server.Extensions;
 using Server.Services;
 
+Env.Load();
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuration
-builder.Services.Configure<MongoSettings>(
-    builder.Configuration.GetSection("MongoSettings"));
+builder.Configuration.AddEnvironmentVariables();
 
-builder.Services.Configure<BrevoSettings>(
-    builder.Configuration.GetSection("BrevoSettings"));
 
-builder.Services.Configure<JwtSettings>(
-    builder.Configuration.GetSection("JwtSettings"));
+// MongoDB
+builder.Services.Configure<MongoSettings>(options =>
+{
+    options.ConnectionString =
+        Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING")
+        ?? throw new Exception("MONGO_CONNECTION_STRING missing");
 
-builder.Services.Configure<AdminUserSettings>(
-    builder.Configuration.GetSection("AdminUser"));
+    options.DatabaseName =
+        Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME")
+        ?? "PortfolioDb";
+});
+
+
+// Brevo
+builder.Services.Configure<BrevoSettings>(options =>
+{
+    options.ApiKey =
+        Environment.GetEnvironmentVariable("BREVO_API_KEY") ?? "";
+
+    options.SenderEmail =
+        Environment.GetEnvironmentVariable("BREVO_SENDER_EMAIL") ?? "";
+
+    options.SenderName =
+        Environment.GetEnvironmentVariable("BREVO_SENDER_NAME") ?? "";
+
+    options.RecipientEmail =
+        Environment.GetEnvironmentVariable("BREVO_RECIPIENT_EMAIL") ?? "";
+});
+
+
+// JWT
+builder.Services.Configure<JwtSettings>(options =>
+{
+    options.Secret =
+        Environment.GetEnvironmentVariable("JWT_SECRET") ?? "";
+
+    options.Issuer =
+        Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "";
+
+    options.Audience =
+        Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "";
+
+    options.ExpiryMinutes =
+        int.Parse(
+            Environment.GetEnvironmentVariable("JWT_EXPIRY_MINUTES") ?? "120"
+        );
+});
+
+
+// Admin
+builder.Services.Configure<AdminUserSettings>(options =>
+{
+    options.Username =
+        Environment.GetEnvironmentVariable("ADMIN_USERNAME") ?? "";
+
+    options.PasswordHash =
+        Environment.GetEnvironmentVariable("ADMIN_PASSWORD_HASH") ?? "";
+});
+
 
 // Dependency Injection
 builder.Services.AddSingleton<PortfolioDbContext>();
@@ -26,9 +79,11 @@ builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 // CORS
 var allowedOrigins = builder.Configuration
@@ -45,10 +100,13 @@ builder.Services.AddCors(options =>
     });
 });
 
+
 // JWT
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
+
 var app = builder.Build();
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -56,7 +114,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+
+// Disable this while testing HTTP locally
+// app.UseHttpsRedirection();
+
+
 app.UseCors("PortfolioFrontend");
 
 app.UseAuthentication();
