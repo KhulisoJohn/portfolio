@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using PortfolioApi.Models;
+using Server.Models;
 
 namespace Server.Data;
 
@@ -14,10 +14,9 @@ public class PortfolioDbContext
         _database = client.GetDatabase(settings.Value.DatabaseName);
     }
 
-    public IMongoCollection<BlogPost> BlogPosts => _database.GetCollection<BlogPost>("blogPosts");
-    public IMongoCollection<ContactMessage> ContactMessages => _database.GetCollection<ContactMessage>("contactMessages");
-}
+    public IMongoCollection<BlogPost> BlogPosts =>
+        _database.GetCollection<BlogPost>("blogPosts");
 
-internal interface IMongoDatabase
-{
+    public IMongoCollection<ContactMessage> ContactMessages =>
+        _database.GetCollection<ContactMessage>("contactMessages");
 }

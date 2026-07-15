@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace PortfolioApi.Models;
+namespace Server.Models;
 
 public class BlogPost
 {

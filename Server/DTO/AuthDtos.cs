@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PortfolioApi.DTOs;
+namespace Server.DTOs;
 
 public class LoginRequestDto
 {

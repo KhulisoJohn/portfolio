@@ -1,9 +1,9 @@
 using MongoDB.Driver;
-using PortfolioApi.Data;
-using PortfolioApi.DTOs;
-using PortfolioApi.Models;
+using Server.Data;
+using Server.DTOs;
+using Server.Models;
 
-namespace PortfolioApi.Services;
+namespace Server.Services;
 
 public interface IBlogService
 {
@@ -16,9 +16,9 @@ public interface IBlogService
 
 public class BlogService : IBlogService
 {
-    private readonly MongoDbContext _db;
+    private readonly PortfolioDbContext _db;
 
-    public BlogService(MongoDbContext db)
+    public BlogService(PortfolioDbContext db)
     {
         _db = db;
     }

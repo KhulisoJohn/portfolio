@@ -1,9 +1,9 @@
 using MongoDB.Driver;
-using PortfolioApi.Data;
-using PortfolioApi.DTOs;
-using PortfolioApi.Models;
+using Server.Data;
+using Server.DTOs;
+using Server.Models;
 
-namespace PortfolioApi.Services;
+namespace Server.Services;
 
 public interface IContactService
 {
@@ -12,11 +12,11 @@ public interface IContactService
 
 public class ContactService : IContactService
 {
-    private readonly MongoDbContext _db;
+    private readonly PortfolioDbContext _db;
     private readonly IEmailService _emailService;
     private readonly ILogger<ContactService> _logger;
 
-    public ContactService(MongoDbContext db, IEmailService emailService, ILogger<ContactService> logger)
+    public ContactService(PortfolioDbContext db, IEmailService emailService, ILogger<ContactService> logger)
     {
         _db = db;
         _emailService = emailService;
