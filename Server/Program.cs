@@ -1,6 +1,7 @@
 using DotNetEnv;
 using Server.Data;
 using Server.Extensions;
+using Server.Health;
 using Server.Services;
 
 Env.Load();
@@ -10,20 +11,37 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
 
 
+// ============================================================
 // MongoDB
+// ============================================================
+
+var mongoConnectionString =
+    Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING")
+    ?? throw new Exception("MONGO_CONNECTION_STRING missing");
+
+var mongoDatabaseName =
+    Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME")
+    ?? "PortfolioDb";
+
 builder.Services.Configure<MongoSettings>(options =>
 {
-    options.ConnectionString =
-        Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING")
-        ?? throw new Exception("MONGO_CONNECTION_STRING missing");
-
-    options.DatabaseName =
-        Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME")
-        ?? "PortfolioDb";
+    options.ConnectionString = mongoConnectionString;
+    options.DatabaseName = mongoDatabaseName;
 });
 
 
+// ============================================================
+// Health Checks
+// ============================================================
+
+builder.Services.AddHealthChecks()
+    .AddCheck<MongoDbHealthCheck>("mongodb");
+
+
+// ============================================================
 // Brevo
+// ============================================================
+
 builder.Services.Configure<BrevoSettings>(options =>
 {
     options.ApiKey =
@@ -40,7 +58,10 @@ builder.Services.Configure<BrevoSettings>(options =>
 });
 
 
+// ============================================================
 // JWT
+// ============================================================
+
 builder.Services.Configure<JwtSettings>(options =>
 {
     options.Secret =
@@ -54,12 +75,16 @@ builder.Services.Configure<JwtSettings>(options =>
 
     options.ExpiryMinutes =
         int.Parse(
-            Environment.GetEnvironmentVariable("JWT_EXPIRY_MINUTES") ?? "120"
+            Environment.GetEnvironmentVariable("JWT_EXPIRY_MINUTES")
+            ?? "120"
         );
 });
 
 
+// ============================================================
 // Admin
+// ============================================================
+
 builder.Services.Configure<AdminUserSettings>(options =>
 {
     options.Username =
@@ -70,7 +95,10 @@ builder.Services.Configure<AdminUserSettings>(options =>
 });
 
 
+// ============================================================
 // Dependency Injection
+// ============================================================
+
 builder.Services.AddSingleton<PortfolioDbContext>();
 
 builder.Services.AddHttpClient<IEmailService, BrevoEmailService>();
@@ -80,33 +108,55 @@ builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 
+// ============================================================
+// Controllers / Swagger
+// ============================================================
+
 builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
 
+// ============================================================
 // CORS
+// ============================================================
+
 var allowedOrigins = builder.Configuration
     .GetSection("CorsSettings:AllowedOrigins")
-    .Get<string[]>() ?? Array.Empty<string>();
+    .Get<string[]>()
+    ?? Array.Empty<string>();
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("PortfolioFrontend", policy =>
     {
-        policy.WithOrigins(allowedOrigins)
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy
+            .WithOrigins(allowedOrigins)
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 
 
-// JWT
+// ============================================================
+// JWT Authentication
+// ============================================================
+
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
 
+// ============================================================
+// Build Application
+// ============================================================
+
 var app = builder.Build();
 
+
+// ============================================================
+// Swagger
+// ============================================================
 
 if (app.Environment.IsDevelopment())
 {
@@ -115,15 +165,41 @@ if (app.Environment.IsDevelopment())
 }
 
 
-// Disable this while testing HTTP locally
+// ============================================================
+// HTTPS
+// ============================================================
+
+// Disabled while testing HTTP locally
 // app.UseHttpsRedirection();
 
+
+// ============================================================
+// Middleware
+// ============================================================
 
 app.UseCors("PortfolioFrontend");
 
 app.UseAuthentication();
+
 app.UseAuthorization();
 
+
+// ============================================================
+// API Endpoints
+// ============================================================
+
 app.MapControllers();
+
+
+// ============================================================
+// Health Check
+// ============================================================
+
+app.MapHealthChecks("/health");
+
+
+// ============================================================
+// Run
+// ============================================================
 
 app.Run();
