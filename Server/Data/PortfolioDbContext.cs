@@ -14,6 +14,8 @@ public class PortfolioDbContext
         _database = client.GetDatabase(settings.Value.DatabaseName);
     }
 
+    public IMongoDatabase Database => _database;
+
     public IMongoCollection<BlogPost> BlogPosts =>
         _database.GetCollection<BlogPost>("blogPosts");
 
