@@ -10,13 +10,11 @@ namespace Server.Controllers;
 public class BlogController : ControllerBase
 {
     private readonly IBlogService _blogService;
-
     public BlogController(IBlogService blogService)
     {
         _blogService = blogService;
     }
 
-    // GET api/blog
     [HttpGet]
     public async Task<ActionResult<List<BlogPostSummaryDto>>> GetAll()
     {
@@ -24,7 +22,6 @@ public class BlogController : ControllerBase
         return Ok(posts);
     }
 
-    // GET api/blog/{slug}
     [HttpGet("{slug}")]
     public async Task<ActionResult<BlogPostDetailDto>> GetBySlug(string slug)
     {
@@ -35,7 +32,6 @@ public class BlogController : ControllerBase
         return Ok(post);
     }
 
-    // POST api/blog  (admin only)
     [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<BlogPostDetailDto>> Create([FromBody] BlogPostCreateDto dto)
@@ -47,7 +43,7 @@ public class BlogController : ControllerBase
         return CreatedAtAction(nameof(GetBySlug), new { slug = created.Slug }, created);
     }
 
-    // PUT api/blog/{id}  (admin only)
+  
     [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<ActionResult<BlogPostDetailDto>> Update(string id, [FromBody] BlogPostUpdateDto dto)
@@ -62,7 +58,6 @@ public class BlogController : ControllerBase
         return Ok(updated);
     }
 
-    // DELETE api/blog/{id}  (admin only)
     [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
