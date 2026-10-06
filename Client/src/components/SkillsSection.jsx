@@ -2,28 +2,28 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 // Frontend
-import htmlIcon from "../assets/icons/html.webp";
-import cssIcon from "../assets/icons/css.webp";
-import jsIcon from "../assets/icons/js.webp";
-import reactIcon from "../assets/icons/react.webp";
-import tailwindIcon from "../assets/icons/tailwind.webp";
-import tsIcon from "../assets/icons/typescript.webp";
+import htmlIcon from "../../public/icons/html.webp";
+import cssIcon from "../../public/icons/css.webp";
+import jsIcon from "../../public/icons/js.webp";
+import reactIcon from "../../public/icons/react.webp";
+import tailwindIcon from "../../public/icons/tailwind.webp";
+import tsIcon from "../../public/icons/typescript.webp";
 
 // Backend
-import csharpIcon from "../assets/icons/Csharp.webp";
-import expressIcon from "../assets/icons/express.webp";
-import nodejsIcon from "../assets/icons/node.webp";
-import mysqlIcon from "../assets/icons/sql.webp";
-import mongodbIcon from "../assets/icons/nosql.webp";
-import aspnetIcon from "../assets/icons/dotnet.webp";
+import csharpIcon from "../../public/icons/Csharp.webp";
+import expressIcon from "../../public/icons/express.webp";
+import nodejsIcon from "../../public/icons/node.webp";
+import mysqlIcon from "../../public/icons/sql.webp";
+import mongodbIcon from "../../public/icons/nosql.webp";
+import aspnetIcon from "../../public/icons/dotnet.webp";
 
 // Tools
-import githubIcon from "../assets/icons/git.webp";
-import dockerIcon from "../assets/icons/docker.webp";
-import slackIcon from "../assets/icons/postman-icon.webp";
-import vscodeIcon from "../assets/icons/vs code.webp";
-import sqlserverIcon from "../assets/icons/Linux.webp";
-import azureIcon from "../assets/icons/Azure.webp";
+import githubIcon from "../../public/icons/git.webp";
+import dockerIcon from "../../public/icons/docker.webp";
+import slackIcon from "../../public/icons/postman-icon.webp";
+import vscodeIcon from "../../public/icons/vs code.webp";
+import sqlserverIcon from "../../public/icons/Linux.webp";
+import azureIcon from "../../public/icons/Azure.webp";
 
 const skills = [
   { name: "HTML", image: htmlIcon, category: "frontend" },
