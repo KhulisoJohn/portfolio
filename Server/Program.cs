@@ -7,6 +7,12 @@ using Server.Services;
 
 Env.Load();
 
+var hash = Environment.GetEnvironmentVariable("ADMIN_PASSWORD_HASH") ?? "";
+
+Console.WriteLine($"Hash length: {hash.Length}");
+Console.WriteLine($"Hash prefix: {hash[..Math.Min(7, hash.Length)]}");
+Console.WriteLine($"Leading/trailing whitespace: {hash != hash.Trim()}");
+
 // Bootstrap logger: active only until the host builds, so we can also capture
 // any exception that happens during configuration/startup itself.
 Log.Logger = new LoggerConfiguration()
@@ -281,6 +287,9 @@ try
 
     app.Run();
 }
+
+
+
 catch (Exception ex)
 {
     Log.Fatal(ex, "Server terminated unexpectedly during startup");
