@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import { Code } from "lucide-react";
 import { FaGitAlt, FaDatabase } from "react-icons/fa";
+import { siteConfig } from "@/data/siteConfig";
 
 // 👇 Move this outside the main component
 function DownloadPDF() {
@@ -41,10 +43,29 @@ export const AboutSection = () => {
               which allows me to contribute to full-stack solutions when needed.
             </p>
 
+           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left pt-2">
+  <div>
+    <dt className="text-sm font-medium">Full name</dt>
+    <dd className="text-muted-foreground text-sm">{siteConfig.fullName}</dd>
+  </div>
+  <div>
+    <dt className="text-sm font-medium">Field of study</dt>
+    <dd className="text-muted-foreground text-sm">{siteConfig.fieldOfStudy}</dd>
+  </div>
+  <div>
+    <dt className="text-sm font-medium">Institution</dt>
+    <dd className="text-muted-foreground text-sm">{siteConfig.institution}</dd>
+  </div>
+  <div>
+    <dt className="text-sm font-medium">Key strengths</dt>
+    <dd className="text-muted-foreground text-sm">{siteConfig.strengths.join(", ")}</dd>
+  </div>
+</div>
+
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
-              <a href="#contact" className="cosmic-button">
+              <Link href="#contact" className="cosmic-button">
                 Get In Touch
-              </a>
+              </Link>
               <DownloadPDF />
             </div>
           </div>
