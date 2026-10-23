@@ -1,18 +1,19 @@
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  { name: "Home", href: "#hero" },
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", to: "/" },
+  { name: "Services", to: "/services" },
+  { name: "Blog", to: "/blog" },
+  { name: "Contact", to: "/contact" },
 ];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +23,10 @@ export const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const isActive = (to) =>
+    to === "/" ? pathname === "/" : pathname.startsWith(to);
+
   return (
     <nav
       className={cn(
@@ -30,31 +35,33 @@ export const Navbar = () => {
       )}
     >
       <div className="container flex items-center justify-between">
-        <a
+        <Link
           className="text-xl font-bold text-primary flex items-center"
-          href="#hero"
+          to="/"
         >
           <span className="relative z-10">
-            <span className="text-glow text-foreground"> Khulyso</span>{" "}
-            John
+            <span className="text-glow text-foreground"> Khuliso</span>{" "}
+            Thavhiwa
           </span>
-        </a>
+        </Link>
 
         {/* desktop nav */}
         <div className="hidden md:flex space-x-8">
-          {navItems.map((item, key) => (
-            <a
-              key={key}
-              href={item.href}
-              className="text-foreground/80 hover:text-primary transition-colors duration-300"
+          {navItems.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={cn(
+                "hover:text-primary transition-colors duration-300",
+                isActive(item.to) ? "text-primary" : "text-foreground/80"
+              )}
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
 
         {/* mobile nav */}
-
         <button
           onClick={() => setIsMenuOpen((prev) => !prev)}
           className="md:hidden p-2 text-foreground z-50"
@@ -73,15 +80,18 @@ export const Navbar = () => {
           )}
         >
           <div className="flex flex-col space-y-8 text-xl">
-            {navItems.map((item, key) => (
-              <a
-                key={key}
-                href={item.href}
-                className="text-foreground/80 hover:text-primary transition-colors duration-300"
+            {navItems.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={cn(
+                  "hover:text-primary transition-colors duration-300",
+                  isActive(item.to) ? "text-primary" : "text-foreground/80"
+                )}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

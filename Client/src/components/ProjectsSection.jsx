@@ -1,27 +1,7 @@
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
+import { projects } from "@/data/projects";
 
-const projects = [
-  {
-    id: 1,
-    title: "Fountain SA Landing Page",
-    description: "A responsive landing page for a fictional fountain local church.",
-    image: "/projects/project1.png",
-    tags: ["HTML", "Javascript", "Bootstrap"],
-    demoUrl: "https://fountainsa.vercel.app/",
-    githubUrl: "https://github.com/KhulisoJohn/fountainLandingPage",
-  },
-  {
-    id: 2,
-    title: "Notes App",
-    description:
-      " Fullstack CRUD application that allows users to create, read, update, and delete personal notes",
-    image: "/projects/project2.png",
-    tags: ["React", "RESTFul API", "MongoDB"],
-    demoUrl: "#",
-    githubUrl: "https://github.com/KhulisoJohn/NotesApp",
-  }
-    
-];
+
 
 export const ProjectsSection = () => {
   return (
