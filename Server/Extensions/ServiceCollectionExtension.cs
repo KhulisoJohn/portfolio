@@ -1,5 +1,7 @@
+
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Server.Data;
 
@@ -11,24 +13,44 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        var jwtSettings = configuration
-            .GetSection("JwtSettings")
-            .Get<JwtSettings>() ?? throw new Exception("JwtSettings not configured.");
+        services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer();
 
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
+        services.AddOptions<JwtBearerOptions>(
+            JwtBearerDefaults.AuthenticationScheme)
+            .Configure<IOptions<JwtSettings>>((options, settingsOptions) =>
             {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtSettings.Issuer,
-                    ValidAudience = jwtSettings.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(jwtSettings.Secret))
-                };
+                var jwtSettings = settingsOptions.Value;
+
+                if (string.IsNullOrWhiteSpace(jwtSettings.Secret))
+                    throw new InvalidOperationException(
+                        "JWT_SECRET is missing.");
+
+                if (string.IsNullOrWhiteSpace(jwtSettings.Issuer))
+                    throw new InvalidOperationException(
+                        "JWT_ISSUER is missing.");
+
+                if (string.IsNullOrWhiteSpace(jwtSettings.Audience))
+                    throw new InvalidOperationException(
+                        "JWT_AUDIENCE is missing.");
+
+                options.TokenValidationParameters =
+                    new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+
+                        ValidIssuer = jwtSettings.Issuer,
+                        ValidAudience = jwtSettings.Audience,
+
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(jwtSettings.Secret)),
+
+                        ClockSkew = TimeSpan.FromSeconds(30)
+                    };
             });
 
         services.AddAuthorization();
