@@ -1,3 +1,4 @@
+
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getBlogPosts } from "../lib/api";
@@ -16,12 +17,12 @@ export const BlogPage = () => {
     setError(null);
 
     getBlogPosts()
-      .then(setPosts)
+      .then((data) => {
+        setPosts(Array.isArray(data) ? data : []);
+      })
       .catch((err) => {
         setError(
-          err instanceof Error
-            ? err.message
-            : "Failed to load posts"
+          err instanceof Error ? err.message : "Failed to load posts"
         );
       })
       .finally(() => {
@@ -32,6 +33,20 @@ export const BlogPage = () => {
   useEffect(() => {
     loadPosts();
   }, [loadPosts]);
+
+  const formatDate = (dateValue) => {
+    if (!dateValue) return "Date unavailable";
+
+    const date = new Date(dateValue);
+
+    if (Number.isNaN(date.getTime())) return "Date unavailable";
+
+    return date.toLocaleDateString("en-ZA", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
 
   return (
     <>
@@ -51,7 +66,6 @@ export const BlogPage = () => {
           {error && (
             <div className="text-center">
               <p className="text-destructive mb-4">{error}</p>
-
               <button
                 onClick={loadPosts}
                 className="cosmic-button"
@@ -82,6 +96,7 @@ export const BlogPage = () => {
                         src={post.coverImageUrl}
                         alt={post.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        loading="lazy"
                       />
                     </div>
                   )}
@@ -104,17 +119,19 @@ export const BlogPage = () => {
                       {post.title}
                     </h2>
 
-                    <p className="text-muted-foreground text-sm mb-3">
+                    <p className="text-muted-foreground text-sm mb-4">
                       {post.excerpt}
                     </p>
 
-                    <span className="text-xs text-muted-foreground">
-                      {new Date(post.createdAt).toLocaleDateString("en-ZA", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </span>
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-xs text-muted-foreground">
+                        Published: {formatDate(post.publishedAt ?? post.createdAt)}
+                      </span>
+
+                      <span className="text-sm font-medium text-primary group-hover:underline">
+                        Read full article →
+                      </span>
+                    </div>
                   </div>
                 </Link>
               ))}
