@@ -1,3 +1,4 @@
+
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -5,7 +6,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Server.Data;
 using Server.DTOs;
-
 
 namespace Server.Services;
 
@@ -29,96 +29,150 @@ public class AuthService : IAuthService
         _adminUser = adminUser.Value;
         _logger = logger;
 
-        // Fail fast at startup if the configured hash isn't usable, instead of
-        // crashing later on the first login attempt (IndexOutOfRangeException
-        // from BCrypt.Verify on a malformed/quoted/empty hash).
         if (!IsWellFormedBCryptHash(_adminUser.PasswordHash))
         {
             _logger.LogWarning(
-                "ADMIN_PASSWORD_HASH is missing or not a well-formed BCrypt hash " +
-                "(expected 60 chars, starting with $2a$/$2b$/$2y$). " +
-                "Login will be rejected until this is fixed. Check for stray quotes " +
-                "or whitespace in the .env file / environment variable.");
+                "ADMIN_PASSWORD_HASH is missing or malformed. " +
+                "Administrator login will fail until it is corrected.");
+        }
+
+        if (string.IsNullOrWhiteSpace(_jwtSettings.Secret) ||
+            Encoding.UTF8.GetByteCount(_jwtSettings.Secret) < 32)
+        {
+            throw new InvalidOperationException(
+                "JWT secret must contain at least 32 bytes.");
+        }
+
+        if (string.IsNullOrWhiteSpace(_jwtSettings.Issuer))
+        {
+            throw new InvalidOperationException(
+                "JWT issuer must be configured.");
+        }
+
+        if (string.IsNullOrWhiteSpace(_jwtSettings.Audience))
+        {
+            throw new InvalidOperationException(
+                "JWT audience must be configured.");
+        }
+
+        if (_jwtSettings.ExpiryMinutes <= 0)
+        {
+            throw new InvalidOperationException(
+                "JWT expiry minutes must be greater than zero.");
+        }
+
+        if (string.IsNullOrWhiteSpace(_adminUser.Username))
+        {
+            throw new InvalidOperationException(
+                "Administrator username must be configured.");
         }
     }
 
     public LoginResponseDto? Login(LoginRequestDto dto)
     {
-        if (dto.Username != _adminUser.Username)
+        if (dto is null ||
+            string.IsNullOrWhiteSpace(dto.Username) ||
+            string.IsNullOrEmpty(dto.Password))
         {
-            _logger.LogWarning("Login failed: unknown username {Username}", dto.Username);
+            return null;
+        }
+
+        if (!string.Equals(
+                dto.Username,
+                _adminUser.Username,
+                StringComparison.Ordinal))
+        {
+            _logger.LogWarning("Login failed: invalid credentials.");
             return null;
         }
 
         if (!IsWellFormedBCryptHash(_adminUser.PasswordHash))
         {
             _logger.LogError(
-                "Login rejected: configured admin password hash is malformed. " +
-                "Refusing to call BCrypt.Verify to avoid a crash.");
+                "Login rejected because the configured password hash is invalid.");
+
             return null;
         }
 
         bool passwordValid;
+
         try
         {
-            passwordValid = BCrypt.Net.BCrypt.Verify(dto.Password, _adminUser.PasswordHash);
+            passwordValid = BCrypt.Net.BCrypt.Verify(
+                dto.Password,
+                _adminUser.PasswordHash);
         }
         catch (Exception ex)
         {
-            // Defensive: never let a malformed hash or bad input crash the request
-            // pipeline. Treat it as a failed login and log it for investigation.
-            _logger.LogError(ex, "BCrypt.Verify threw unexpectedly during login for {Username}", dto.Username);
+            _logger.LogError(
+                ex,
+                "Password verification failed unexpectedly.");
+
             return null;
         }
 
         if (!passwordValid)
         {
-            _logger.LogWarning("Login failed: bad password for {Username}", dto.Username);
+            _logger.LogWarning("Login failed: invalid credentials.");
             return null;
         }
 
-        _logger.LogInformation("Login succeeded for {Username}", dto.Username);
-
-        var expiresAt = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes);
+        var now = DateTime.UtcNow;
+        var expiresAt = now.AddMinutes(_jwtSettings.ExpiryMinutes);
 
         var claims = new[]
         {
-            new Claim(ClaimTypes.Name, dto.Username),
-            new Claim(ClaimTypes.Role, "Admin")
+            // Stable identifier for the configured administrator.
+            // Replace with a database user ID if multi-user support is added.
+            new Claim(
+                ClaimTypes.NameIdentifier,
+                _adminUser.Username),
+
+            new Claim(
+                ClaimTypes.Name,
+                _adminUser.Username),
+
+            new Claim(
+                ClaimTypes.Role,
+                "Admin"),
+
+            new Claim(
+                JwtRegisteredClaimNames.Jti,
+                Guid.NewGuid().ToString())
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var key = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(_jwtSettings.Secret));
+
+        var credentials = new SigningCredentials(
+            key,
+            SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
             issuer: _jwtSettings.Issuer,
             audience: _jwtSettings.Audience,
             claims: claims,
+            notBefore: now,
             expires: expiresAt,
-            signingCredentials: creds
-        );
+            signingCredentials: credentials);
+
+        _logger.LogInformation(
+            "Administrator login succeeded.");
 
         return new LoginResponseDto
         {
             Token = new JwtSecurityTokenHandler().WriteToken(token),
+            TokenType = "Bearer",
             ExpiresAt = expiresAt
         };
     }
 
-    /// <summary>
-    /// Cheap sanity check that a string looks like a real BCrypt hash before
-    /// handing it to BCrypt.Verify. BCrypt hashes are always 60 characters and
-    /// start with $2a$, $2b$, or $2y$. This catches the common failure modes:
-    /// empty string (env var missing), quoted value from a .env file, or
-    /// truncated value from a too-short DB column.
-    /// </summary>
     private static bool IsWellFormedBCryptHash(string? hash)
     {
-        if (string.IsNullOrWhiteSpace(hash))
+        if (string.IsNullOrWhiteSpace(hash) || hash.Length != 60)
+        {
             return false;
-
-        if (hash.Length != 60)
-            return false;
+        }
 
         return hash.StartsWith("$2a$", StringComparison.Ordinal)
             || hash.StartsWith("$2b$", StringComparison.Ordinal)

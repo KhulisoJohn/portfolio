@@ -1,3 +1,4 @@
+
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -9,6 +10,7 @@ public class BlogPost
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
+    // Article content
     [BsonElement("title")]
     public string Title { get; set; } = string.Empty;
 
@@ -27,8 +29,24 @@ public class BlogPost
     [BsonElement("tags")]
     public List<string> Tags { get; set; } = new();
 
+    [BsonElement("authorId")]
+    public string? AuthorId { get; set; }
+
+    [BsonElement("authorName")]
+    public string? AuthorName { get; set; }
+
     [BsonElement("isPublished")]
-    public bool IsPublished { get; set; } = true;
+    public bool IsPublished { get; set; } = false;
+
+    [BsonElement("publishedAt")]
+    public DateTime? PublishedAt { get; set; }
+
+    [BsonElement("metaTitle")]
+    public string? MetaTitle { get; set; }
+
+    [BsonElement("metaDescription")]
+    public string? MetaDescription { get; set; }
+
 
     [BsonElement("createdAt")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
