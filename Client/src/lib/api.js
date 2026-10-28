@@ -1,6 +1,7 @@
+const  API_BASE_URL =
+  (import.meta.env.VITE_API_URL ||
+    'https://portfolio-1rww.onrender.com/api').replace(/\/+$/, '');
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5191/api";
 
 async function handleResponse(res) {
   if (!res.ok) {
