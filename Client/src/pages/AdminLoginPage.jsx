@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LockKeyhole, UserRound } from "lucide-react";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5191/api";
+const API_BASE_URL = import.meta.env.VITE_API_URL ||
+"https://portfolio-1rww.onrender.com/api";
 
 export default function AdminLoginPage() {
   const navigate = useNavigate();
