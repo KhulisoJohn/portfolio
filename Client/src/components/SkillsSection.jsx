@@ -11,27 +11,28 @@ import tsIcon from "../assets/icons/typescript.webp";
 import csharpIcon from "../assets/icons/Csharp.webp";
 import aspnetIcon from "../assets/icons/dotnet.webp";
 import nodejsIcon from "../assets/icons/node.webp";
-import githubIcon from "../assets/icons/git.webp";
-import dockerIcon from "../assets/icons/docker.webp";
-import postmanIcon from "../assets/icons/postman-icon.webp";
+import gitIcon from "../assets/icons/git.webp";
 
-// Data Analyst (add these icon files to public/icons)
+// Data Analytics
 import excelIcon from "../assets/icons/excel.webp";
 import sqlIcon from "../assets/icons/sql.webp";
 import powerbiIcon from "../assets/icons/powerbi.webp";
 import pythonIcon from "../assets/icons/python.webp";
-import pandasIcon from "../assets/icons/pandas.webp";
-import mongodbIcon from "../assets/icons/nosql.webp";
+import pandasIcon from "../assets/icons/panda.webp";
+import NoSQLIcon from "../assets/icons/nosql.webp";
+import matlabIcon from "../assets/icons/Matlab.webp"; 
+
+// Tools
+import dockerIcon from "../assets/icons/docker.webp";
+import postmanIcon from "../assets/icons/postman-icon.webp";
+import vscodeIcon from "../assets/icons/vscode.webp"; 
+import jupyterIcon from "../assets/icons/jupyter.webp"; // add this file
+import supabaseIcon from "../assets/icons/supabase.webp"; 
+import renderIcon from "../assets/icons/render.webp"; // add this file
+import gitHubIcon from "../assets/icons/gitHub.webp";
+import mongodbIcon from "../assets/icons/mongodb.webp";
 
 const skills = [
-  // Data Analyst
-  { name: "Excel", image: excelIcon, category: "data analyst" },
-  { name: "SQL", image: sqlIcon, category: "data analyst" },
-  { name: "Power BI", image: powerbiIcon, category: "data analyst" },
-  { name: "Python", image: pythonIcon, category: "data analyst" },
-  { name: "Pandas", image: pandasIcon, category: "data analyst" },
-  { name: "noSQL", image: mongodbIcon, category: "data analyst" },
-
   // Software Development
   { name: "HTML", image: htmlIcon, category: "software development" },
   { name: "CSS", image: cssIcon, category: "software development" },
@@ -42,18 +43,35 @@ const skills = [
   { name: "C#", image: csharpIcon, category: "software development" },
   { name: "ASP.NET", image: aspnetIcon, category: "software development" },
   { name: "Node.js", image: nodejsIcon, category: "software development" },
-  { name: "Git", image: githubIcon, category: "software development" },
-  { name: "Docker", image: dockerIcon, category: "software development" },
-  { name: "Postman", image: postmanIcon, category: "software development" },
+  { name: "Git", image: gitIcon, category: "software development" },
+
+  // Data Analytics
+  { name: "Excel", image: excelIcon, category: "data analytics" },
+  { name: "SQL", image: sqlIcon, category: "data analytics" },
+  { name: "Power BI", image: powerbiIcon, category: "data analytics" },
+  { name: "Python", image: pythonIcon, category: "data analytics" },
+  { name: "Pandas", image: pandasIcon, category: "data analytics" },
+  { name: "noSQL", image: NoSQLIcon, category: "data analytics" },
+  { name: "MATLAB", image: matlabIcon, category: "data analytics" },
+
+  // Tools
+  { name: "VS Code", image: vscodeIcon, category: "tools" },
+  { name: "Jupyter", image: jupyterIcon, category: "tools" },
+  { name: "Docker", image: dockerIcon, category: "tools" },
+  { name: "Postman", image: postmanIcon, category: "tools" },
+  { name: "Supabase", image: supabaseIcon, category: "tools" },
+  { name: "Render", image: renderIcon, category: "tools" },
+  {name: "GitHub", image: gitHubIcon, category: "tools"},
+  {name: "MongoDB", image: mongodbIcon, category: "tools"}
 ];
 
-const categories = ["all", "data analyst", "software development"];
+const categories = ["software development", "data analytics", "tools"];
 
 export const SkillsSection = () => {
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState("software development");
 
   const filteredSkills = skills.filter(
-    (skill) => activeCategory === "all" || skill.category === activeCategory
+    (skill) => skill.category === activeCategory
   );
 
   return (
