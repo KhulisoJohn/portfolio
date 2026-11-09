@@ -1,13 +1,12 @@
 import { ArrowDown } from "lucide-react";
 import { SiReact, SiTypescript, SiDotnet, SiPostgresql, SiMongodb, SiPython } from "react-icons/si";
-//import { DiCsharp } from "react-icons/di";
+import  Image   from "../assets/images/khulyso.jpeg";
 
 
-// Icons placed evenly around the photo. Colours are each brand's own colour.
+
 const techIcons = [
   { Icon: SiReact, label: "React", color: "#61DAFB" },
   { Icon: SiTypescript, label: "TypeScript", color: "#3178C6" },
-  //{ Icon: DiCsharp, label: "C#", color: "#9B4F96" },
   { Icon: SiDotnet, label: ".NET", color: "#512BD4" },
   { Icon: SiPostgresql, label: "PostgreSQL", color: "#4169E1" },
   { Icon: SiMongodb, label: "MongoDB", color: "#47A248" },
@@ -61,7 +60,7 @@ export const HeroSection = () => {
 
             {/* Photo: put your image in /public/khuliso.jpg */}
             <img
-              src="../../public/images/khulyso.jpeg"
+              src={Image}
               alt="Khuliso Thavhiwa, software developer and data analyst"
               className="absolute inset-[14%] w-[72%] h-[72%] rounded-full object-cover border-4 border-primary/40 shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)]"
             />

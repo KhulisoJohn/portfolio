@@ -1,10 +1,9 @@
-// One place for every detail the rubric asks for (WHO, WHAT, WHEN, WHERE, WHY, HOW MUCH).
-// Edit the values here and every page and the footer update automatically.
+
 
 export const siteConfig = {
-  // WHO
+  // WHO AM I
   name: "Khuliso Thavhiwa",
-  fullName: "Khuliso John Thavhiwa", // as per ID
+  fullName: "Khuliso John Thavhiwa", 
   role: "Data Analyst & Full-Stack Developer",
   tagline: "I turn data into clear decisions and ideas into working software.",
   fieldOfStudy: "Electrical Engineering, now building a career in software development and data analysis",
@@ -20,17 +19,21 @@ export const siteConfig = {
   email: "khulysojohn@gmail.com",
   phoneDisplay: "+27 81 885 4153",
   phoneTel: "+27818854153",
-  whatsappNumber: "27818854153", // country code + number, no "+" or spaces
+  whatsappNumber: "27818854153", 
   whatsappMessage:
     "Hi Khuliso, I found your portfolio and would like to talk about a project.",
   location: "Mudimeli Village, Makhado, Limpopo, South Africa",
 
-  // Leave a link as "" to hide its icon.
+ 
   socials: {
     github: "https://github.com/KhulisoJohn",
-    linkedin: "",
-    facebook: "",
-    discord: "",
+    linkedin: "https://www.linkedin.com/in/khulisothavhiwa/",
+    facebook: "https://web.facebook.com/khuisojohn",
+    dev: "",
+    tiktok: "",
+    instagrm: "",
+    upwork: "",
+    
   },
 
   // WHEN
