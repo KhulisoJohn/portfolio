@@ -1,8 +1,6 @@
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { projects } from "@/data/projects";
 
-
-
 export const ProjectsSection = () => {
   return (
     <section id="projects" className="py-24 px-4 relative">
@@ -12,11 +10,11 @@ export const ProjectsSection = () => {
         </h2>
 
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Here are some of my recent projects. Each project was carefully
-          crafted with attention to detail, performance, and user experience.
+          Here are some of my personal projects. Each one links to the code or
+          the live site.
         </p>
 
-        <div className="md:grid grid-cols-1 lg:grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.map((project) => (
             <div
               key={project.id}
@@ -47,27 +45,30 @@ export const ProjectsSection = () => {
                   {project.description}
                 </p>
 
-                <div className="flex justify-between items-center">
-                  <div className="flex space-x-3">
-                    {project.demoUrl && (
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                      >
-                        <ExternalLink size={20} />
-                      </a>
-                    )}
+                <div className="flex space-x-3">
+                  {project.demoUrl && project.demoUrl !== "#" && (
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${project.title} live site`}
+                      className="text-foreground/80 hover:text-primary transition-colors duration-300"
+                    >
+                      <ExternalLink size={20} />
+                    </a>
+                  )}
+
+                  {project.githubUrl && (
                     <a
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`${project.title} source code`}
                       className="text-foreground/80 hover:text-primary transition-colors duration-300"
                     >
                       <Github size={20} />
                     </a>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>

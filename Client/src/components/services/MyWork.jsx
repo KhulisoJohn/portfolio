@@ -1,5 +1,5 @@
-import { ExternalLink, Github } from "lucide-react";
-import { projects } from "@/data/projects";
+import { ExternalLink } from "lucide-react";
+import { clientProjects } from "@/data/projects";
 
 export const MyWork = () => {
   return (
@@ -9,12 +9,11 @@ export const MyWork = () => {
           My <span className="text-primary">Work</span>
         </h2>
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Examples of what I have built, with the tools I used. Each one links
-          to the live site or the code.
+          Client projects I have built, with the tools I used.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project) => (
+          {clientProjects.map((project) => (
             <div
               key={project.id}
               className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover text-left"
@@ -46,28 +45,17 @@ export const MyWork = () => {
                   ))}
                 </ul>
 
-                <div className="flex space-x-3">
-                  {project.demoUrl && project.demoUrl !== "#" && (
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${project.title} live site`}
-                      className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                    >
-                      <ExternalLink size={20} />
-                    </a>
-                  )}
+                {project.demoUrl && project.demoUrl !== "#" && (
                   <a
-                    href={project.githubUrl}
+                    href={project.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`${project.title} source code`}
-                    className="text-foreground/80 hover:text-primary transition-colors duration-300"
+                    aria-label={`${project.title} live site`}
+                    className="inline-block text-foreground/80 hover:text-primary transition-colors duration-300"
                   >
-                    <Github size={20} />
+                    <ExternalLink size={20} />
                   </a>
-                </div>
+                )}
               </div>
             </div>
           ))}

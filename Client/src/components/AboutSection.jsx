@@ -3,12 +3,11 @@ import { Code } from "lucide-react";
 import { FaGitAlt, FaDatabase } from "react-icons/fa";
 import { siteConfig } from "@/data/siteConfig";
 
-// 👇 Move this outside the main component
 function DownloadPDF() {
   return (
     <a
       className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 text-center"
-      href="/document/my_resume.pdf" // make sure this path is correct in /public folder
+      href="src/assets/document/my_resume.pdf" // make sure this path is correct in /public folder
       download
     >
       Download CV

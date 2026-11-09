@@ -1,54 +1,53 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-// Frontend
-import htmlIcon from "../../public/icons/html.webp";
-import cssIcon from "../../public/icons/css.webp";
-import jsIcon from "../../public/icons/js.webp";
-import reactIcon from "../../public/icons/react.webp";
-import tailwindIcon from "../../public/icons/tailwind.webp";
-import tsIcon from "../../public/icons/typescript.webp";
+// Software Development
+import htmlIcon from "../assets/icons/html.webp";
+import cssIcon from "../assets/icons/css.webp";
+import jsIcon from "../assets/icons/js.webp";
+import reactIcon from "../assets/icons/react.webp";
+import tailwindIcon from "../assets/icons/tailwind.webp";
+import tsIcon from "../assets/icons/typescript.webp";
+import csharpIcon from "../assets/icons/Csharp.webp";
+import aspnetIcon from "../assets/icons/dotnet.webp";
+import nodejsIcon from "../assets/icons/node.webp";
+import githubIcon from "../assets/icons/git.webp";
+import dockerIcon from "../assets/icons/docker.webp";
+import postmanIcon from "../assets/icons/postman-icon.webp";
 
-// Backend
-import csharpIcon from "../../public/icons/Csharp.webp";
-import expressIcon from "../../public/icons/express.webp";
-import nodejsIcon from "../../public/icons/node.webp";
-import mysqlIcon from "../../public/icons/sql.webp";
-import mongodbIcon from "../../public/icons/nosql.webp";
-import aspnetIcon from "../../public/icons/dotnet.webp";
-
-// Tools
-import githubIcon from "../../public/icons/git.webp";
-import dockerIcon from "../../public/icons/docker.webp";
-import slackIcon from "../../public/icons/postman-icon.webp";
-import vscodeIcon from "../../public/icons/vs code.webp";
-import sqlserverIcon from "../../public/icons/Linux.webp";
-import azureIcon from "../../public/icons/Azure.webp";
+// Data Analyst (add these icon files to public/icons)
+import excelIcon from "../assets/icons/excel.webp";
+import sqlIcon from "../assets/icons/sql.webp";
+import powerbiIcon from "../assets/icons/powerbi.webp";
+import pythonIcon from "../assets/icons/python.webp";
+import pandasIcon from "../assets/icons/pandas.webp";
+import mongodbIcon from "../assets/icons/nosql.webp";
 
 const skills = [
-  { name: "HTML", image: htmlIcon, category: "frontend" },
-  { name: "CSS", image: cssIcon, category: "frontend" },
-  { name: "Javascript", image: jsIcon, category: "frontend" },
-  { name: "TypeScript", image: tsIcon, category: "frontend" },
-  { name: "Tailwind CSS", image: tailwindIcon, category: "frontend" },
-  { name: "React.js", image: reactIcon, category: "frontend" },
+  // Data Analyst
+  { name: "Excel", image: excelIcon, category: "data analyst" },
+  { name: "SQL", image: sqlIcon, category: "data analyst" },
+  { name: "Power BI", image: powerbiIcon, category: "data analyst" },
+  { name: "Python", image: pythonIcon, category: "data analyst" },
+  { name: "Pandas", image: pandasIcon, category: "data analyst" },
+  { name: "noSQL", image: mongodbIcon, category: "data analyst" },
 
-  { name: "C#", image: csharpIcon, category: "backend" },
-  { name: "Express.js", image: expressIcon, category: "backend" },
-  { name: "Node.js", image: nodejsIcon, category: "backend" },
-  { name: "SQL", image: mysqlIcon, category: "backend" },
-  { name: "noSQL", image: mongodbIcon, category: "backend" },
-  { name: "ASP.NET", image: aspnetIcon, category: "backend" },
-
-  { name: "Git", image: githubIcon, category: "tools" },
-  { name: "Docker", image: dockerIcon, category: "tools" },
-  { name: "Postman", image: slackIcon, category: "tools" },
-  { name: "VS Code", image: vscodeIcon, category: "tools" },
-  { name: "Linux", image: sqlserverIcon, category: "tools" },
-  { name: "Azure", image: azureIcon, category: "tools" },
+  // Software Development
+  { name: "HTML", image: htmlIcon, category: "software development" },
+  { name: "CSS", image: cssIcon, category: "software development" },
+  { name: "JavaScript", image: jsIcon, category: "software development" },
+  { name: "TypeScript", image: tsIcon, category: "software development" },
+  { name: "Tailwind CSS", image: tailwindIcon, category: "software development" },
+  { name: "React.js", image: reactIcon, category: "software development" },
+  { name: "C#", image: csharpIcon, category: "software development" },
+  { name: "ASP.NET", image: aspnetIcon, category: "software development" },
+  { name: "Node.js", image: nodejsIcon, category: "software development" },
+  { name: "Git", image: githubIcon, category: "software development" },
+  { name: "Docker", image: dockerIcon, category: "software development" },
+  { name: "Postman", image: postmanIcon, category: "software development" },
 ];
 
-const categories = ["all", "frontend", "backend", "tools"];
+const categories = ["all", "data analyst", "software development"];
 
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -65,9 +64,9 @@ export const SkillsSection = () => {
         </h2>
 
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category, key) => (
+          {categories.map((category) => (
             <button
-              key={key}
+              key={category}
               onClick={() => setActiveCategory(category)}
               className={cn(
                 "px-5 py-2 rounded-full transition-colors duration-300 capitalize",
@@ -82,9 +81,9 @@ export const SkillsSection = () => {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-          {filteredSkills.map((skill, key) => (
+          {filteredSkills.map((skill) => (
             <div
-              key={key}
+              key={skill.name}
               className="bg-card px-2 py-6 justify-center rounded-lg shadow-xs card-hover flex items-center gap-4"
             >
               <h3 className="font-semibold text-lg">{skill.name}</h3>
@@ -95,7 +94,6 @@ export const SkillsSection = () => {
                 height={32}
                 className="rounded-md"
               />
-              
             </div>
           ))}
         </div>

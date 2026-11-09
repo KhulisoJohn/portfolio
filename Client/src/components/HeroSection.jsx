@@ -61,7 +61,7 @@ export const HeroSection = () => {
 
             {/* Photo: put your image in /public/khuliso.jpg */}
             <img
-              src="../../public/images/khulyso.jpeg"
+              src="../assets/images/khulyso.jpeg"
               alt="Khuliso Thavhiwa, software developer and data analyst"
               className="absolute inset-[14%] w-[72%] h-[72%] rounded-full object-cover border-4 border-primary/40 shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)]"
             />

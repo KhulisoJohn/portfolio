@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
-import { Quote } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
+
+const getInitials = (name: string) =>
+  name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((n) => n[0].toUpperCase())
+    .join("");
 
 export const Testimonials = () => {
   return (
@@ -25,16 +33,57 @@ export const Testimonials = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
             {testimonials.map((item) => (
-              <figure key={item.name} className="bg-card p-6 rounded-lg shadow-xs text-left">
+              <figure
+                key={item.name}
+                className="bg-card p-6 rounded-lg shadow-xs text-left flex flex-col"
+              >
                 <Quote className="h-6 w-6 text-primary mb-3" />
-                <blockquote className="text-muted-foreground mb-4">
+
+                {item.rating ? (
+                  <div
+                    className="flex gap-1 mb-3"
+                    role="img"
+                    aria-label={`${item.rating} out of 5 stars`}
+                  >
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-4 w-4 ${
+                          i < item.rating!
+                            ? "fill-primary text-primary"
+                            : "text-muted-foreground"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                ) : null}
+
+                <blockquote className="text-muted-foreground mb-6 flex-1">
                   {item.quote}
                 </blockquote>
-                <figcaption className="text-sm">
-                  <span className="font-semibold">{item.name}</span>
-                  {item.role && (
-                    <span className="text-muted-foreground">, {item.role}</span>
+
+                <figcaption className="flex items-center gap-3">
+                  {item.image ? (
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      loading="lazy"
+                      className="h-12 w-12 rounded-full object-cover border border-primary/30"
+                    />
+                  ) : (
+                    <div
+                      aria-hidden="true"
+                      className="h-12 w-12 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold"
+                    >
+                      {getInitials(item.name)}
+                    </div>
                   )}
+                  <div className="text-sm">
+                    <div className="font-semibold">{item.name}</div>
+                    {item.role && (
+                      <div className="text-muted-foreground">{item.role}</div>
+                    )}
+                  </div>
                 </figcaption>
               </figure>
             ))}
