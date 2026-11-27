@@ -2,11 +2,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 // Software Development
-import htmlIcon from "../assets/icons/html.webp";
-import cssIcon from "../assets/icons/css.webp";
-import jsIcon from "../assets/icons/js.webp";
 import reactIcon from "../assets/icons/react.webp";
-import tailwindIcon from "../assets/icons/tailwind.webp";
 import tsIcon from "../assets/icons/typescript.webp";
 import csharpIcon from "../assets/icons/Csharp.webp";
 import aspnetIcon from "../assets/icons/dotnet.webp";
@@ -19,14 +15,11 @@ import sqlIcon from "../assets/icons/sql.webp";
 import powerbiIcon from "../assets/icons/powerbi.webp";
 import pythonIcon from "../assets/icons/python.webp";
 import pandasIcon from "../assets/icons/panda.webp";
-import NoSQLIcon from "../assets/icons/nosql.webp";
 import matlabIcon from "../assets/icons/Matlab.webp"; 
 
 // Tools
-import dockerIcon from "../assets/icons/docker.webp";
 import postmanIcon from "../assets/icons/postman-icon.webp";
 import vscodeIcon from "../assets/icons/vscode.webp"; 
-import jupyterIcon from "../assets/icons/jupyter.webp"; // add this file
 import supabaseIcon from "../assets/icons/supabase.webp"; 
 import renderIcon from "../assets/icons/render.webp"; // add this file
 import gitHubIcon from "../assets/icons/gitHub.webp";
@@ -34,11 +27,8 @@ import mongodbIcon from "../assets/icons/mongodb.webp";
 
 const skills = [
   // Software Development
-  { name: "HTML", image: htmlIcon, category: "software development" },
-  { name: "CSS", image: cssIcon, category: "software development" },
-  { name: "JavaScript", image: jsIcon, category: "software development" },
+
   { name: "TypeScript", image: tsIcon, category: "software development" },
-  { name: "Tailwind CSS", image: tailwindIcon, category: "software development" },
   { name: "React.js", image: reactIcon, category: "software development" },
   { name: "C#", image: csharpIcon, category: "software development" },
   { name: "ASP.NET", image: aspnetIcon, category: "software development" },
@@ -51,13 +41,10 @@ const skills = [
   { name: "Power BI", image: powerbiIcon, category: "data analytics" },
   { name: "Python", image: pythonIcon, category: "data analytics" },
   { name: "Pandas", image: pandasIcon, category: "data analytics" },
-  { name: "noSQL", image: NoSQLIcon, category: "data analytics" },
   { name: "MATLAB", image: matlabIcon, category: "data analytics" },
 
   // Tools
   { name: "VS Code", image: vscodeIcon, category: "tools" },
-  { name: "Jupyter", image: jupyterIcon, category: "tools" },
-  { name: "Docker", image: dockerIcon, category: "tools" },
   { name: "Postman", image: postmanIcon, category: "tools" },
   { name: "Supabase", image: supabaseIcon, category: "tools" },
   { name: "Render", image: renderIcon, category: "tools" },
